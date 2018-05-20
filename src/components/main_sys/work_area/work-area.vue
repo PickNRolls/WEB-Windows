@@ -6,7 +6,7 @@
     @mouseleave="_restoreHighlight"
   >
     <div class="work-area__highlight"
-      v-shown="highlightOptions.mousedowned"
+      v-show="highlightOptions.mousedowned"
       :style="highlightOptions.style"
     />
 
@@ -25,18 +25,17 @@ export default {
   data () {
     return {
       files: [{name: 'Sublime Text 3'}],
-      count: 0,
       width: 800,
       highlightOptions: {
         mousedowned: false,
         oldTransform: null,
         startPos: { x: null, y: null },
+        coordRect: { x: null, y: null},
         offset: { x: null, y: null },
         style: {
           width: null,
           height: null,
-          transform: null,
-          transformOrigin: '0 0'
+          transform: null
         }
       }
     };
@@ -53,8 +52,9 @@ export default {
     },
     _mousedown(e) {
       var options = this.highlightOptions;
-      var x = e.clientX;
-      var y = e.clientY;
+      var coordRect = this.highlightOptions.coordRect = this.$el.getBoundingClientRect()
+      var x = e.clientX - coordRect.left;
+      var y = e.clientY - coordRect.top;
       options.mousedowned = true;
       options.startPos.x = x;
       options.startPos.y = y;
@@ -65,9 +65,10 @@ export default {
       if (this.highlightOptions.mousedowned) {
         var options = this.highlightOptions;
         var startPos = options.startPos;
+        var coordRect = this.highlightOptions.coordRect;
         var style = options.style;
-        var width = e.clientX - startPos.x;
-        var height = e.clientY - startPos.y;
+        var width = e.clientX - startPos.x - coordRect.x;
+        var height = e.clientY - startPos.y - coordRect.y;
 
         var oldTransform = options.oldTransform;
         if (width < 0 && height < 0) {
@@ -75,19 +76,20 @@ export default {
           width *= -1;
           height *= -1;
         }
-        else if (width < 0 && height > 0) {
+        else if (width < 0 && height >= 0) {
           style.transform = oldTransform + ' scale(-1, 1)';
           width *= -1;
         }
-        else if (width > 0 && height < 0) {
+        else if (width >= 0 && height < 0) {
           style.transform = oldTransform + ' scale(1, -1)';
           height *= -1;
         } else {
           style.transform = oldTransform;
         }
 
-        options.style.width = width + 'px';
-        options.style.height = height + 'px';
+        style.width = width + 'px';
+        style.height = height + 'px';
+        console.log(width);
       }
     },
     _restoreHighlight() {
@@ -102,14 +104,13 @@ export default {
   },
   mounted () {
     window.addEventListener('resize', this._handleResize);
-    this.$el.onselectstart = function() { return false; };
   }
 };
 </script>
 
 <style lang="sass" scoped>
 .work-area
-  width: 800px
+  width: 100%
   height: 100%
   &__highlight
     width: 0
@@ -117,6 +118,7 @@ export default {
     border: 1px solid #0078d7
     background: rgba(#0078d7, .3)
     position: absolute
+    transform-origin: 0 0
 
 .icon-rows
   display: flex

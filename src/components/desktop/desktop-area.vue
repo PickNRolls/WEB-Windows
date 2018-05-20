@@ -1,14 +1,14 @@
 <template>
-  <workarea/>
+  <windowFrame :title="'C:\\WEB\\web_windows - Sublime Text'" />
 </template>
 
 <script>
-import workarea from '../main_sys/work_area/work-area';
+import windowFrame from '../main_sys/window_frame/window-frame';
 
 export default {
   name: 'desktop-area',
   components: {
-    workarea
+    windowFrame
   },
   data () {
     return {

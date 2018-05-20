@@ -11,6 +11,9 @@ export default {
   name: 'App',
   components: {
     desktopArea
+  },
+  mounted () {
+    this.$el.onselectstart = function() { return false; };
   }
 };
 </script>
@@ -26,4 +29,5 @@ html,
 #app
   font-family: 'Roboto', sans-serif
   height: 100%
+  cursor: default
 </style>
