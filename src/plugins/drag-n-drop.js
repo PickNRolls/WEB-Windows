@@ -34,7 +34,8 @@ DragNDrop.install = function(Vue, options) {
         y: coords.top
       };
 
-      if (pluginOptions.callbacks.mousedown) {
+
+      if (pluginOptions.callbacks && pluginOptions.callbacks.mousedown) {
         pluginOptions.callbacks.mousedown({
           e,
           startPos,
@@ -49,7 +50,7 @@ DragNDrop.install = function(Vue, options) {
         shiftPos.x = startPos.x - coords.left;
         shiftPos.y = startPos.y - coords.top;
 
-        if (pluginOptions.callbacks.mousemove) {
+        if (pluginOptions.callbacks && pluginOptions.callbacks.mousemove) {
           pluginOptions.callbacks.mousemove({
             e,
             startPos,
@@ -62,7 +63,7 @@ DragNDrop.install = function(Vue, options) {
     this.$el.addEventListener('mouseup', function (e) {
       mousedowned = false;
 
-      if (pluginOptions.callbacks.mouseup) {
+      if (pluginOptions.callbacks && pluginOptions.callbacks.mouseup) {
         pluginOptions.callbacks.mouseup({
           e
         });
