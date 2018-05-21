@@ -3,8 +3,10 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import dragNDrop from './plugins/drag-n-drop';
 
 Vue.config.productionTip = false;
+Vue.use(dragNDrop);
 
 /* eslint-disable no-new */
 new Vue({

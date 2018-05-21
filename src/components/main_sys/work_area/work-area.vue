@@ -1,10 +1,5 @@
 <template>
-  <div class="work-area"
-    @mousedown="_mousedown"
-    @mouseup="_restoreHighlight"
-    @mousemove="_mousemove"
-    @mouseleave="_restoreHighlight"
-  >
+  <div class="work-area">
     <div class="work-area__highlight"
       v-show="highlightOptions.mousedowned"
       :style="highlightOptions.style"
@@ -29,9 +24,6 @@ export default {
       highlightOptions: {
         mousedowned: false,
         oldTransform: null,
-        startPos: { x: null, y: null },
-        coordRect: { x: null, y: null},
-        offset: { x: null, y: null },
         style: {
           width: null,
           height: null,
@@ -50,49 +42,41 @@ export default {
     _handleResize () {
       this.width = this.$el.clientWidth;
     },
-    _mousedown(e) {
+    _mousedown (data) {
+      var x = data.startPos.x - data.shiftPos.x;
+      var y = data.startPos.y - data.shiftPos.y;
       var options = this.highlightOptions;
-      var coordRect = this.highlightOptions.coordRect = this.$el.getBoundingClientRect()
-      var x = e.clientX - coordRect.left;
-      var y = e.clientY - coordRect.top;
-      options.mousedowned = true;
-      options.startPos.x = x;
-      options.startPos.y = y;
-
       options.style.transform = options.oldTransform = `translate(${x}px, ${y}px)`;
+      options.mousedowned = true;
     },
-    _mousemove(e) {
-      if (this.highlightOptions.mousedowned) {
-        var options = this.highlightOptions;
-        var startPos = options.startPos;
-        var coordRect = this.highlightOptions.coordRect;
-        var style = options.style;
-        var width = e.clientX - startPos.x - coordRect.x;
-        var height = e.clientY - startPos.y - coordRect.y;
+    _mousemove (data) {
+      var e = data.e;
+      var width = e.clientX - data.startPos.x;
+      var height = e.clientY - data.startPos.y;
 
-        var oldTransform = options.oldTransform;
-        if (width < 0 && height < 0) {
-          style.transform = oldTransform + ' scale(-1, -1)';
-          width *= -1;
-          height *= -1;
-        }
-        else if (width < 0 && height >= 0) {
-          style.transform = oldTransform + ' scale(-1, 1)';
-          width *= -1;
-        }
-        else if (width >= 0 && height < 0) {
-          style.transform = oldTransform + ' scale(1, -1)';
-          height *= -1;
-        } else {
-          style.transform = oldTransform;
-        }
+      var oldTransform = this.highlightOptions.oldTransform;
+      var style = this.highlightOptions.style;
 
-        style.width = width + 'px';
-        style.height = height + 'px';
-        console.log(width);
+      if (width < 0 && height < 0) {
+        style.transform = oldTransform + ' scale(-1, -1)';
+        width *= -1;
+        height *= -1;
       }
+      else if (width < 0 && height >= 0) {
+        style.transform = oldTransform + ' scale(-1, 1)';
+        width *= -1;
+      }
+      else if (width >= 0 && height < 0) {
+        style.transform = oldTransform + ' scale(1, -1)';
+        height *= -1;
+      } else {
+        style.transform = oldTransform;
+      }
+
+      style.width = width + 'px';
+      style.height = height + 'px';
     },
-    _restoreHighlight() {
+    _restoreHighlight () {
       var options = this.highlightOptions;
       var style = options.style;
 
@@ -103,7 +87,16 @@ export default {
     }
   },
   mounted () {
+    var componentContext = this;
     window.addEventListener('resize', this._handleResize);
+
+    this.$dragNDrop({
+      callbacks: {
+        mousedown: componentContext._mousedown,
+        mousemove: componentContext._mousemove,
+        mouseup: componentContext._restoreHighlight
+      }
+    });
   }
 };
 </script>

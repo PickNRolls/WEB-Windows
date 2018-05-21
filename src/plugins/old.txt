@@ -1,0 +1,50 @@
+_mousedown(e) {
+      var options = this.highlightOptions;
+      var coordRect = this.highlightOptions.coordRect = this.$el.getBoundingClientRect()
+      var x = e.clientX - coordRect.left;
+      var y = e.clientY - coordRect.top;
+      options.mousedowned = true;
+      options.startPos.x = x;
+      options.startPos.y = y;
+
+      options.style.transform = options.oldTransform = `translate(${x}px, ${y}px)`;
+    },
+    _mousemove(e) {
+      if (this.highlightOptions.mousedowned) {
+        var options = this.highlightOptions;
+        var startPos = options.startPos;
+        var coordRect = this.highlightOptions.coordRect;
+        var style = options.style;
+        var width = e.clientX - startPos.x - coordRect.x;
+        var height = e.clientY - startPos.y - coordRect.y;
+
+        var oldTransform = options.oldTransform;
+        if (width < 0 && height < 0) {
+          style.transform = oldTransform + ' scale(-1, -1)';
+          width *= -1;
+          height *= -1;
+        }
+        else if (width < 0 && height >= 0) {
+          style.transform = oldTransform + ' scale(-1, 1)';
+          width *= -1;
+        }
+        else if (width >= 0 && height < 0) {
+          style.transform = oldTransform + ' scale(1, -1)';
+          height *= -1;
+        } else {
+          style.transform = oldTransform;
+        }
+
+        style.width = width + 'px';
+        style.height = height + 'px';
+      }
+    },
+    _restoreHighlight() {
+      var options = this.highlightOptions;
+      var style = options.style;
+
+      options.mousedowned = false;
+      style.width = 0;
+      style.height = 0;
+      style.transform = '';
+    }
