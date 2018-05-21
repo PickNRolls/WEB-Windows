@@ -19,7 +19,7 @@ export default {
   name: 'work-area',
   data () {
     return {
-      files: [{name: 'Sublime Text 3'}],
+      files: [{title: 'Sublime Text 3', imageUrl: '/static/sublime.png'}],
       width: 800,
       highlightOptions: {
         mousedowned: false,

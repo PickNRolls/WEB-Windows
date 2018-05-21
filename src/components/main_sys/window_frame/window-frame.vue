@@ -89,7 +89,7 @@ export default {
 .window-frame
   width: 800px
   height: 600px
-  border: 5px solid #84d7da
+  border: 5px solid #71D2D2
   border-top: none
   box-shadow: 0 0 5px rgba(#000, .2)
   &.full-screen

@@ -1,12 +1,17 @@
 <template>
   <ul class="row" :style="elementStyle">
     <li class="row__item" v-for="file in files">
-      {{ file.name }}
+      <file
+        :title="file.title"
+        :imageUrl="file.imageUrl"
+      />
     </li>
   </ul>
 </template>
 
 <script>
+import file from '../file/file';
+
 export default {
   name: 'work-area-row',
   data () {
@@ -15,6 +20,9 @@ export default {
     };
   },
   props: ['files', 'allowableWidth'],
+  components: {
+    file
+  },
   computed: {
     elementStyle () {
       var width = this.files.length * (69 + 5);
@@ -44,7 +52,6 @@ export default {
   flex-wrap: wrap
   list-style: none
   &__item
-    border: 1px solid #000
     min-width: 69px
     min-height: 75px
     flex: 1

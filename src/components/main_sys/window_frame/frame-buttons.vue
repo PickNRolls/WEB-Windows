@@ -36,13 +36,13 @@ export default {
   transition: background .2s ease
   &.close
     width: 45px
-    background: #d23f3f
+    background: #C75050
     color: #fff
     font-size: 19px
     margin-right: 0
     &:hover
-      background: lighten(#d23f3f, 3%)
+      background: #E04343
   &:hover
-    background: #5339F6
+    background: #3665B3
     color: #fff
 </style>

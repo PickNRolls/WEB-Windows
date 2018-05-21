@@ -29,7 +29,7 @@ export default {
 
 <style lang="sass" scoped>
 .frame-top
-  background: #84d7da
+  background: #71D2D2
   display: flex
   justify-content: flex-end
   &__title
