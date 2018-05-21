@@ -40,7 +40,7 @@ export default {
     margin-right: auto
     margin-left: auto
   &__buttons
-    margin-right: -180px
+    margin-right: -97px
     position: relative
-    right: 180px
+    right: 97px
 </style>

@@ -7,6 +7,7 @@ var getCoords = function (el) {
     left: box.left + pageXOffset
   };
 };
+
 DragNDrop.install = function(Vue, options) {
   Vue.prototype.$dragNDrop = function(pluginOptions) {
     var mousedowned = false;
@@ -72,8 +73,19 @@ DragNDrop.install = function(Vue, options) {
 
     function mouseupHandler (e) {
       mousedowned = false;
+      var nearly = mousedownedEl === e.target;
+      if (!nearly) {
+        var target = e.target;
+        while (target.parentElement !== null) {
+          target = target.parentElement;
+          if (target === mousedownedEl) {
+            nearly = true;
+            break;
+          }
+        }
+      }
 
-      if (pluginOptions && pluginOptions.callbacks.mouseup && mousedownedEl === e.target) {
+      if (pluginOptions && pluginOptions.callbacks.mouseup && nearly) {
         pluginOptions.callbacks.mouseup({
           e,
           startPos,

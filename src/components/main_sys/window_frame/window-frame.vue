@@ -18,6 +18,7 @@
 <script>
 import workarea from '../work_area/work-area';
 import frameTop from './frame-top';
+
 export default {
   name: 'window-frame',
   data () {

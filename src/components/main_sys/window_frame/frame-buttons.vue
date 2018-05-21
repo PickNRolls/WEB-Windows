@@ -1,5 +1,5 @@
 <template>
-  <div class="buttons">
+  <div class="buttons" @mousedown.stop>
     <button class="button roll" @click="$emit('roll')">R</button>
     <button class="button full-screen" @click="$emit('full-screen')">F</button>
     <button class="button close" @click="$emit('close')">×</button>
@@ -21,7 +21,6 @@ export default {
 .buttons
   display: flex
   justify-content: flex-end
-  width: 180px
 
 .button
   display: block
