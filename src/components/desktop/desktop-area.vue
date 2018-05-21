@@ -1,5 +1,7 @@
 <template>
-  <windowFrame :title="'C:\\WEB\\web_windows - Sublime Text'" />
+  <div class="desktop-area">
+    <windowFrame :title="'C:\\WEB\\web_windows - Sublime Text'" />
+  </div>
 </template>
 
 <script>
@@ -19,5 +21,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-
+.desktop-area
+  width: 100%
+  height: 100%
+  background: url(back.jpg) no-repeat center top / cover
 </style>

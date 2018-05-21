@@ -1,5 +1,9 @@
 <template>
-  <div class="window-frame" v-if="open" :class="{ 'full-screen': full }">
+  <div class="window-frame"
+    v-if="open"
+    :class="{ 'full-screen': full }"
+    :style="posOptions.style"
+  >
     <frameTop class="window-frame__top"
       :title="title"
 
@@ -19,7 +23,14 @@ export default {
   data () {
     return {
       open: true,
-      full: false
+      full: false,
+      posOptions: {
+        lastX: 0,
+        lastY: 0,
+        style: {
+          transform: null
+        }
+      }
     };
   },
   components: {
@@ -28,16 +39,47 @@ export default {
   },
   props: ['title'],
   methods: {
-    roll() {
+    roll () {
       console.log('Rolled to tray!');
     },
-    fullScreen() {
+    fullScreen () {
       if (this.full) this.full = false;
-      else this.full = true;
+      else {
+        this.full = true;
+        this.posOptions.style.transform = '';
+        this.posOptions.lastX = 0;
+        this.posOptions.lastY = 0;
+      }
     },
-    close() {
+    close () {
       this.open = false;
+    },
+
+
+    _mousemove (data) {
+      var e = data.e;
+      var x = this.posOptions.lastX + e.clientX - data.startPos.x;
+      var y = this.posOptions.lastY + e.clientY - data.startPos.y;
+      this.posOptions.style.transform = `translate(${x}px, ${y}px)`;
+    },
+    _mouseup (data) {
+      this.posOptions.lastX += data.e.clientX - data.startPos.x;
+      this.posOptions.lastY += data.e.clientY - data.startPos.y;
     }
+  },
+  mounted() {
+    var componentContext = this;
+    var frameTop = this.$children[0].$el;
+
+    this.$dragNDrop({
+      el: frameTop,
+      callbacks: {
+        mousemove: componentContext._mousemove,
+        mouseup: componentContext._mouseup
+      },
+      mouseupOnDocument: true,
+      mousemoveOnDocument: true
+    });
   }
 }
 </script>

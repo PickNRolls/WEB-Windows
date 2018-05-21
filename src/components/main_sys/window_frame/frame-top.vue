@@ -23,10 +23,7 @@ export default {
   components: {
     frameButtons
   },
-  props: ['title'],
-  mounted() {
-    this.$dragNDrop();
-  }
+  props: ['title']
 }
 </script>
 

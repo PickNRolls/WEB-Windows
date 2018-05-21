@@ -10,6 +10,7 @@ var getCoords = function (el) {
 DragNDrop.install = function(Vue, options) {
   Vue.prototype.$dragNDrop = function(pluginOptions) {
     var mousedowned = false;
+    var mousedownedEl = pluginOptions.el;
     var startPos = {
       x: null,
       y: null
@@ -21,10 +22,11 @@ DragNDrop.install = function(Vue, options) {
     };
 
 
-    this.$el.addEventListener('mousedown', function (e) {
+    pluginOptions.el.addEventListener('mousedown', function (e) {
       if (e.which != 1) return;
 
       mousedowned = true;
+      mousedownedEl = e.target;
       startPos.x = e.pageX;
       startPos.y = e.pageY;
 
@@ -44,9 +46,9 @@ DragNDrop.install = function(Vue, options) {
       }
     });
 
-    this.$el.addEventListener('mousemove', function (e) {
+    function mousemoveHandler (e) {
       if (mousedowned) {
-        var coords = getCoords(this);
+        var coords = getCoords(pluginOptions.el);
         shiftPos.x = startPos.x - coords.left;
         shiftPos.y = startPos.y - coords.top;
 
@@ -58,17 +60,34 @@ DragNDrop.install = function(Vue, options) {
           });
         }
       }
-    });
+    }
 
-    this.$el.addEventListener('mouseup', function (e) {
+    if (pluginOptions.mousemoveOnDocument)
+      document.addEventListener('mousemove', mousemoveHandler);
+    else
+      pluginOptions.el.addEventListener('mousemove', mousemoveHandler);
+
+
+
+
+    function mouseupHandler (e) {
       mousedowned = false;
 
-      if (pluginOptions && pluginOptions.callbacks.mouseup) {
+      if (pluginOptions && pluginOptions.callbacks.mouseup && mousedownedEl === e.target) {
         pluginOptions.callbacks.mouseup({
-          e
+          e,
+          startPos,
+          shiftPos
         });
       }
-    });
+
+      mousedownedEl = null;
+    }
+
+    if (pluginOptions.mouseupOnDocument)
+      document.addEventListener('mouseup', mouseupHandler);
+    else
+      pluginOptions.el.addEventListener('mouseup', mouseupHandler);
   };
 };
 

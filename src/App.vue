@@ -30,4 +30,5 @@ html,
   font-family: 'Roboto', sans-serif
   height: 100%
   cursor: default
+  overflow: hidden
 </style>

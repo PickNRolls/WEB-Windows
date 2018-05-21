@@ -1,5 +1,5 @@
 <template>
-  <div class="work-area">
+  <div class="work-area" @mouseleave="_restoreHighlight">
     <div class="work-area__highlight"
       v-show="highlightOptions.mousedowned"
       :style="highlightOptions.style"
@@ -91,11 +91,13 @@ export default {
     window.addEventListener('resize', this._handleResize);
 
     this.$dragNDrop({
+      el: componentContext.$el,
       callbacks: {
         mousedown: componentContext._mousedown,
         mousemove: componentContext._mousemove,
         mouseup: componentContext._restoreHighlight
-      }
+      },
+      mouseupOnDocument: true
     });
   }
 };
@@ -105,6 +107,7 @@ export default {
 .work-area
   width: 100%
   height: 100%
+  background: #fff
   &__highlight
     width: 0
     height: 0
