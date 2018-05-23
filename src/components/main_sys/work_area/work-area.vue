@@ -1,5 +1,5 @@
 <template>
-  <div class="work-area" @mouseleave="_restoreHighlight">
+  <div class="work-area" @mouseleave="_restoreHighlight" :style="customStyle">
     <div class="work-area__highlight"
       v-show="highlightOptions.mousedowned"
       :style="highlightOptions.style"
@@ -31,7 +31,7 @@ export default {
       }
     };
   },
-  props: ['files'],
+  props: ['files', 'customStyle'],
   components: {
     row
   },
@@ -61,12 +61,10 @@ export default {
         style.transform = oldTransform + ' scale(-1, -1)';
         width *= -1;
         height *= -1;
-      }
-      else if (width < 0 && height >= 0) {
+      } else if (width < 0 && height >= 0) {
         style.transform = oldTransform + ' scale(-1, 1)';
         width *= -1;
-      }
-      else if (width >= 0 && height < 0) {
+      } else if (width >= 0 && height < 0) {
         style.transform = oldTransform + ' scale(1, -1)';
         height *= -1;
       } else {
@@ -107,9 +105,6 @@ export default {
 .work-area
   width: 100%
   height: 100%
-  background: #fff
-  padding-left: 10px
-  padding-top: 10px
   &__highlight
     width: 0
     height: 0
@@ -117,10 +112,4 @@ export default {
     background: rgba(#0078d7, .3)
     position: absolute
     transform-origin: 0 0
-
-.icon-rows
-  display: flex
-  flex-direction: column
-  height: 100%
-  list-style: none
 </style>

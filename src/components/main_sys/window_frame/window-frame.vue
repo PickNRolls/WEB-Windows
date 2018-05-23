@@ -59,7 +59,6 @@ export default {
       this.open = false;
     },
 
-
     _mousemove (data) {
       var e = data.e;
       var x = this.posOptions.lastX + e.clientX - data.startPos.x;
@@ -71,7 +70,7 @@ export default {
       this.posOptions.lastY += data.e.clientY - data.startPos.y;
     }
   },
-  mounted() {
+  mounted () {
     var componentContext = this;
     var frameTop = this.$children[0].$el;
 
@@ -85,7 +84,7 @@ export default {
       mousemoveOnDocument: true
     });
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>
@@ -95,6 +94,10 @@ export default {
   border: 5px solid #71D2D2
   border-top: none
   box-shadow: 0 0 5px rgba(#000, .2)
+  background: #fff
+  position: absolute
+  top: 0
+  left: 0
   &.full-screen
     width: 100%
     height: 100%

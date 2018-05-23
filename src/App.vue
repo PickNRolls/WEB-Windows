@@ -1,19 +1,23 @@
 <template>
   <div id="app">
     <router-view/>
-    <desktopArea></desktopArea>
+    <desktopArea />
+    <taskbar />
   </div>
 </template>
 
 <script>
 import desktopArea from './components/desktop/desktop-area';
+import taskbar from './components/desktop/taskbar';
+
 export default {
   name: 'App',
   components: {
-    desktopArea
+    desktopArea,
+    taskbar
   },
   mounted () {
-    this.$el.onselectstart = function() { return false; };
+    this.$el.onselectstart = function () { return false; };
   }
 };
 </script>

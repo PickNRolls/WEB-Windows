@@ -18,13 +18,13 @@ export default {
   data () {
     return {
 
-    }
+    };
   },
   components: {
     frameButtons
   },
   props: ['title']
-}
+};
 </script>
 
 <style lang="sass" scoped>

@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'file',
-  data() {
+  data () {
     return {
       isClicked: false
     };
@@ -30,6 +30,8 @@ export default {
   text-align: center
   font-size: 12px
   border: 1px solid transparent
+  padding-bottom: 3px
+  padding-top: 1px
   &__icon
     display: block
     width: 50px

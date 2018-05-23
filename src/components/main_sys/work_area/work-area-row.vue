@@ -26,7 +26,7 @@ export default {
     file
   },
   methods: {
-    changeState(file) {
+    changeState (file) {
       if (file !== this.clickedFile && this.clickedFile !== null) {
         this.clickedFile.changeState(false);
       }
@@ -63,6 +63,8 @@ export default {
   align-items: flex-start
   flex-wrap: wrap
   list-style: none
+  margin-left: 10px
+  padding-top: 10px
   &__item
     min-width: 69px
     min-height: 75px
@@ -70,5 +72,4 @@ export default {
     flex-grow: 0
     flex-shrink: 0
     margin-right: 1px
-    margin-top: 10px
 </style>
