@@ -1,9 +1,11 @@
 <template>
   <ul class="row" :style="elementStyle">
-    <li class="row__item" v-for="file in files">
+    <li class="row__item" v-for="_file in files" :key="_file.id">
       <file
-        :title="file.title"
-        :imageUrl="file.imageUrl"
+        :title="_file.title"
+        :imageUrl="_file.imageUrl"
+
+        @mousedown="changeState"
       />
     </li>
   </ul>
@@ -16,12 +18,22 @@ export default {
   name: 'work-area-row',
   data () {
     return {
-
+      clickedFile: null
     };
   },
   props: ['files', 'allowableWidth'],
   components: {
     file
+  },
+  methods: {
+    changeState(file) {
+      if (file !== this.clickedFile && this.clickedFile !== null) {
+        this.clickedFile.changeState(false);
+      }
+
+      file.changeState(true);
+      this.clickedFile = file;
+    }
   },
   computed: {
     elementStyle () {
@@ -57,6 +69,6 @@ export default {
     flex: 1
     flex-grow: 0
     flex-shrink: 0
-    margin-right: 5px
-    margin-bottom: 10px
+    margin-right: 1px
+    margin-top: 10px
 </style>

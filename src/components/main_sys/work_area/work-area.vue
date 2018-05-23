@@ -19,7 +19,6 @@ export default {
   name: 'work-area',
   data () {
     return {
-      files: [{title: 'Sublime Text 3', imageUrl: '/static/sublime.png'}],
       width: 800,
       highlightOptions: {
         mousedowned: false,
@@ -32,6 +31,7 @@ export default {
       }
     };
   },
+  props: ['files'],
   components: {
     row
   },
@@ -108,6 +108,8 @@ export default {
   width: 100%
   height: 100%
   background: #fff
+  padding-left: 10px
+  padding-top: 10px
   &__highlight
     width: 0
     height: 0

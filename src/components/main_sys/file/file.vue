@@ -1,5 +1,5 @@
 <template>
-  <div class="file" @mousedown.stop="changeState" :class="{click: clicked}">
+  <div class="file" @mousedown.stop="sendEmit" :class="{ click: isClicked }">
     <img class="file__icon" :src="imageUrl" :alt="title" draggable="false">
     <span class="file__title">{{ title }}</span>
   </div>
@@ -10,14 +10,16 @@ export default {
   name: 'file',
   data() {
     return {
-      clicked: false
+      isClicked: false
     };
   },
   props: ['title', 'imageUrl'],
   methods: {
-    changeState() {
-      this.clicked = this.clicked ? false : true;
-      console.log(this.clicked);
+    sendEmit () {
+      this.$emit('mousedown', this);
+    },
+    changeState (to) {
+      this.isClicked = to;
     }
   }
 };
@@ -32,7 +34,7 @@ export default {
     display: block
     width: 50px
     height: 50px
-    margin: 0 auto
+    margin: 0 auto 4px
   &__title
     display: block
     line-height: 1.1em

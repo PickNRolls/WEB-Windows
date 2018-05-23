@@ -33,8 +33,8 @@ export default {
   display: flex
   justify-content: flex-end
   &__title
-    height: 24px
-    line-height: 24px
+    height: 30px
+    line-height: 30px
     font-weight: 400
     font-size: 15px
     margin-right: auto

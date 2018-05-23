@@ -11,7 +11,9 @@
       @full-screen="fullScreen"
       @close="close"
     />
-    <workarea />
+    <workarea
+      :files="files"
+    />
   </div>
 </template>
 
@@ -23,6 +25,7 @@ export default {
   name: 'window-frame',
   data () {
     return {
+      files: [{title: 'Sublime Text 3', imageUrl: '/static/sublime.png'}, {title: 'Photoshop', imageUrl: '/static/photoshop.jpg'}],
       open: true,
       full: false,
       posOptions: {
