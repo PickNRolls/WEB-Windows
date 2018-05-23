@@ -15,7 +15,7 @@ export default {
 
 <style lang="sass" scoped>
 .start-menu
-  width: 50px
+  width: 52px
   height: 100%
   border: none
   background: transparent url(/static/start-menu.png) no-repeat center center / 26px 26px
