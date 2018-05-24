@@ -10,9 +10,11 @@
       @roll="roll"
       @full-screen="fullScreen"
       @close="close"
+      @mousedown="increaseZIndex"
     />
     <workarea
       :files="files"
+      :folders="folders"
     />
   </div>
 </template>
@@ -25,14 +27,14 @@ export default {
   name: 'window-frame',
   data () {
     return {
-      files: [{title: 'Sublime Text 3', imageUrl: '/static/sublime.png'}, {title: 'Photoshop', imageUrl: '/static/photoshop.jpg'}],
       open: true,
       full: false,
       posOptions: {
         lastX: 0,
         lastY: 0,
         style: {
-          transform: null
+          transform: null,
+          zIndex: 1
         }
       }
     };
@@ -41,7 +43,7 @@ export default {
     workarea,
     frameTop
   },
-  props: ['title'],
+  props: ['title', 'files', 'folders'],
   methods: {
     roll () {
       console.log('Rolled to tray!');
@@ -57,6 +59,9 @@ export default {
     },
     close () {
       this.open = false;
+    },
+    increaseZIndex () {
+      this.posOptions.style.zIndex++;
     },
 
     _mousemove (data) {

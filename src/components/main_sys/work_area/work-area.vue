@@ -7,6 +7,7 @@
 
     <row
       :files="files"
+      :folders="folders"
       :allowableWidth="width"
     />
   </div>
@@ -31,7 +32,7 @@ export default {
       }
     };
   },
-  props: ['files', 'customStyle'],
+  props: ['files', 'folders', 'customStyle'],
   components: {
     row
   },

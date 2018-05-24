@@ -8,11 +8,21 @@
         @mousedown="changeState"
       />
     </li>
+
+    <li class="row__item" v-for="_folder in folders" :key="_folder.id">
+      <folder
+        :title="_folder.title"
+        :folderID="_folder.folderID"
+
+        @mousedown="changeState"
+      />
+    </li>
   </ul>
 </template>
 
 <script>
 import file from '../file/file';
+import folder from '../folder/folder';
 
 export default {
   name: 'work-area-row',
@@ -21,9 +31,10 @@ export default {
       clickedFile: null
     };
   },
-  props: ['files', 'allowableWidth'],
+  props: ['files', 'folders', 'allowableWidth'],
   components: {
-    file
+    file,
+    folder
   },
   methods: {
     changeState (file) {
@@ -37,7 +48,13 @@ export default {
   },
   computed: {
     elementStyle () {
-      var width = this.files.length * (69 + 5);
+      var width;
+      if (!this.folders) {
+        width = this.files.length * (69 + 5);
+      } else {
+        width = (this.folders.length + this.files.length) * (69 + 5);
+      }
+
       var fileWidth = 74;
 
       if (this.allowableWidth - width < fileWidth) {

@@ -1,6 +1,6 @@
 <template>
   <div class="task" :class="{ active: isActive }">
-    <img class="task__picture" :src="image" :alt="title">
+    <img class="task__picture" :src="image" :alt="title" draggable="false">
   </div>
 </template>
 

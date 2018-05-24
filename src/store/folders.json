@@ -1,0 +1,7 @@
+[
+  {
+    "title": "Simple folder",
+    "files": [{"title": "Sublime Text 3", "imageUrl": "/static/sublime.png"}, {"title": "Photoshop", "imageUrl": "/static/photoshop.jpg"}],
+    "folders": [{"title": "Sublime Text 3"}, {"title": "Photoshop"}]
+  }
+]

@@ -13,7 +13,7 @@ export default {
   name: 'task-list',
   data () {
     return {
-      tasks: ['sublime', 'photoshop']
+      tasks: []
     };
   },
   components: {
