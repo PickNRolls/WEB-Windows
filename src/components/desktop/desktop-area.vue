@@ -2,9 +2,11 @@
   <div class="desktop-area">
     <workarea :files="files" :folders="folders" :customStyle="{ color: '#fff', textShadow: '0 0 3px #000'}" />
 
-    <template v-for="frame in openFramesStore">
-      <windowFrame :title="frame.title" :files="frame.files" :folders="frame.folders" />
-    </template>
+    <windowFrame v-for="(frame, i) in framesStore" :key="frame.title"
+      :title="frame.title"
+      :files="frame.files"
+      :folders="frame.folders"
+      :storeID="i" />
   </div>
 </template>
 
@@ -20,7 +22,7 @@ export default {
     return {
       files: [{title: 'Sublime Text 3', imageUrl: '/static/sublime.png'}, {title: 'Photoshop', imageUrl: '/static/photoshop.jpg'}],
       folders: [{title: 'Sublime Text 3', folderID: 0}, {title: 'Photoshop', folderID: 1}],
-      openFramesStore
+      framesStore: openFramesStore
     };
   },
   components: {

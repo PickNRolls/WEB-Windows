@@ -2,6 +2,12 @@
   {
     "title": "Simple folder",
     "files": [{"title": "Sublime Text 3", "imageUrl": "/static/sublime.png"}, {"title": "Photoshop", "imageUrl": "/static/photoshop.jpg"}],
-    "folders": [{"title": "Sublime Text 3"}, {"title": "Photoshop"}]
+    "folders": [{"title": "Sublime Text 3"}, {"title": "Photoshop"}],
+    "id": 0
+  },
+  {
+    "title": "Another Simple folder",
+    "files": [{"title": "Photoshop", "imageUrl": "/static/photoshop.jpg"}],
+    "id": 1
   }
 ]

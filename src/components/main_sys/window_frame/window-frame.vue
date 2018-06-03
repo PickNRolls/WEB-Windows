@@ -3,6 +3,8 @@
     v-if="open"
     :class="{ 'full-screen': full }"
     :style="posOptions.style"
+
+    @mousedown="increaseZIndex"
   >
     <frameTop class="window-frame__top"
       :title="title"
@@ -10,7 +12,6 @@
       @roll="roll"
       @full-screen="fullScreen"
       @close="close"
-      @mousedown="increaseZIndex"
     />
     <workarea
       :files="files"
@@ -22,6 +23,8 @@
 <script>
 import workarea from '../work_area/work-area';
 import frameTop from './frame-top';
+
+import openFramesStore from '../../../store/openFrames.json';
 
 export default {
   name: 'window-frame',
@@ -43,7 +46,7 @@ export default {
     workarea,
     frameTop
   },
-  props: ['title', 'files', 'folders'],
+  props: ['title', 'files', 'folders', 'storeID'],
   methods: {
     roll () {
       console.log('Rolled to tray!');
@@ -59,9 +62,14 @@ export default {
     },
     close () {
       this.open = false;
+      openFramesStore.splice(this.storeID, 1);
     },
     increaseZIndex () {
-      this.posOptions.style.zIndex++;
+      var thisFrame = openFramesStore[this.storeID];
+      openFramesStore.splice(this.storeID, 1);
+      openFramesStore.splice(0, 0, thisFrame);
+
+      console.log(openFramesStore[0].title, openFramesStore[1].title);
     },
 
     _mousemove (data) {

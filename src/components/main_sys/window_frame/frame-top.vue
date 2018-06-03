@@ -1,5 +1,5 @@
 <template>
-  <div class="frame-top" @mousedown="$emit('mousedown')">
+  <div class="frame-top">
     <h6 class="frame-top__title">
       {{ title }}
     </h6>
