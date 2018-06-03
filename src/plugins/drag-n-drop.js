@@ -89,7 +89,6 @@ DragNDrop.install = function (Vue, options) {
         });
       }
 
-      console.log(mousedownedEl);
       mousedownedEl = null;
     }
 
